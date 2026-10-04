@@ -1,0 +1,50 @@
+import {
+  Activity,
+  Battery,
+  Cable,
+  CarFront,
+  Cog,
+  Disc3,
+  Droplet,
+  FlaskConical,
+  Filter,
+  Gauge,
+  KeyRound,
+  LifeBuoy,
+  Radio,
+  RefreshCw,
+  ShieldCheck,
+  Thermometer,
+  TriangleAlert,
+  Waves,
+  Wrench,
+  Zap,
+  type LucideIcon,
+} from "lucide-react";
+
+// Data files reference icons by name so they can cross the
+// server → client component boundary as plain strings.
+export const icons = {
+  brakes: Disc3,
+  oil: Droplet,
+  fluid: FlaskConical,
+  filter: Filter,
+  diagnostics: Activity,
+  engine: Cog,
+  suspension: Waves,
+  steering: LifeBuoy,
+  battery: Battery,
+  electrical: Zap,
+  starting: KeyRound,
+  tuneup: Gauge,
+  maintenance: ShieldCheck,
+  checkEngine: TriangleAlert,
+  belts: RefreshCw,
+  hoses: Cable,
+  cooling: Thermometer,
+  sensors: Radio,
+  tires: CarFront,
+  general: Wrench,
+} satisfies Record<string, LucideIcon>;
+
+export type IconName = keyof typeof icons;

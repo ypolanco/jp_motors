@@ -1,26 +1,128 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* JP Motor Works — "sunny" theme: warm white, sunshine yellow, sky blue, navy.
+   Token names predate the light theme: `ink` is the page background and
+   `bone` is body text. `navy` is text that sits on accent fills. */
+@theme {
+  --color-ink: #fffdf8;
+  --color-ink-deep: #eaf4ff;
+  --color-panel: #ffffff;
+  --color-panel-2: #fff8e6;
+  --color-line: #ece5d5;
+  --color-line-strong: #d6ccb6;
+  --color-steel: #4a5568;
+  --color-steel-light: #3e4a63;
+  --color-steel-dim: #5f6b80;
+  --color-bone: #18233d;
+  --color-navy: #18233d;
+  --color-accent: #ffc83d;
+  --color-accent-hover: #ffb81a;
+  --color-accent-text: #0e4c92;
+  --color-sky: #ddeeff;
+  --color-mint: #e3f5ea;
+  --color-peach: #ffe9df;
+  --color-lilac: #eee8ff;
+  --color-butter: #fff6d9;
+  --color-sand: #f3efe6;
+  --color-star: #e8a400;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-bricolage), "Avenir Next", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 128px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-navy);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent-text);
+  outline-offset: 3px;
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-[1280px] px-5 sm:px-6;
+  }
+  .display {
+    @apply font-display font-extrabold leading-[1.02] tracking-[-0.02em] text-balance;
+  }
+  .label {
+    @apply font-sans text-[13px] font-bold tracking-[0.02em];
+  }
+  .btn {
+    @apply inline-flex min-h-14 items-center justify-center gap-2.5 rounded-full border-2 border-transparent px-7 font-sans text-[17px] font-extrabold no-underline transition-[transform,background-color,border-color,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-[0_8px_0_-2px_rgb(24_35_61/0.18)];
+  }
+  .btn-primary {
+    @apply bg-accent text-navy hover:bg-accent-hover;
+  }
+  .btn-dark {
+    @apply bg-navy text-ink;
+  }
+  .btn-ghost {
+    @apply border-bone text-bone;
+  }
+  .card {
+    @apply rounded-[28px] border border-line bg-panel transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-[0_18px_40px_-18px_rgb(24_35_61/0.35)];
+  }
+  .text-link {
+    @apply inline-flex items-center gap-2 font-sans text-[17px] font-bold text-accent-text no-underline hover:underline;
+  }
+  .tag {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-panel px-3 py-1;
+  }
+  .outline-num {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--color-line-strong);
+  }
+  .photo-placeholder {
+    background-color: var(--color-sand);
+    background-image: repeating-linear-gradient(135deg, rgb(24 35 61 / 0.04) 0 2px, transparent 2px 12px);
+  }
+  /* Navy surface: flips the text/line tokens for anything inside it. */
+  .on-dark {
+    --color-ink: #18233d;
+    --color-panel: #22304f;
+    --color-bone: #ffffff;
+    --color-steel: #b9c2d3;
+    --color-steel-light: #d5dbe6;
+    --color-line: #2f3b58;
+    --color-line-strong: #43507a;
+    --color-accent-text: #ffc83d;
+    background: #18233d;
+    color: #ffffff;
+  }
+}
+
+/* Fade-in on scroll (CSS scroll-driven; no JS). Static where unsupported. */
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 30%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { animation: none; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
 }
