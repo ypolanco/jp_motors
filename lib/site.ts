@@ -8,8 +8,8 @@ export const site = {
   city: "",
   state: "",
   url: "https://www.jpmotorworks.example", // TODO: production domain
-  phone: "(555) 555-0123", // TODO: real phone
-  phoneHref: "tel:+15555550123",
+  phone: "(516) 522-0319",
+  phoneHref: "tel:+15165220319",
   email: "hello@jpmotorworks.example", // TODO: real email
   address: {
     street: "[Street Address]",
